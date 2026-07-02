@@ -32,5 +32,4 @@ frontend/dist/
 # Logs
 *.log
 
-.env
-**/.env
+
