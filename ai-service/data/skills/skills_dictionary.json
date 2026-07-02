@@ -1,0 +1,22 @@
+{
+  "skills": [
+    "python", "java", "javascript", "typescript", "c++", "c", "sql", "html", "css",
+    "react", "react.js", "redux", "angular", "vue", "node.js", "express", "next.js",
+    "spring boot", "spring mvc", "spring data jpa", "hibernate", "microservices",
+    "rest api", "graphql", "fastapi", "flask", "django",
+    "postgresql", "mysql", "mongodb", "redis", "sqlite", "oracle", "dynamodb",
+    "docker", "kubernetes", "jenkins", "github actions", "ci/cd", "terraform", "ansible",
+    "aws", "azure", "gcp", "ec2", "s3", "lambda", "cloudformation",
+    "kafka", "rabbitmq", "elasticsearch", "grpc",
+    "machine learning", "deep learning", "nlp", "computer vision", "pytorch",
+    "tensorflow", "scikit-learn", "pandas", "numpy", "opencv",
+    "langchain", "langgraph", "rag", "vector database", "faiss", "chromadb",
+    "llm", "prompt engineering", "hugging face", "openai", "gemini",
+    "git", "github", "jira", "agile", "scrum", "junit", "mockito", "pytest",
+    "jwt", "oauth", "rbac", "material ui", "tailwind css", "bootstrap",
+    "data structures", "algorithms", "system design", "design patterns",
+    "power bi", "tableau", "excel", "dax", "etl", "airflow", "spark",
+    "linux", "bash", "nginx", "api gateway", "websocket", "unit testing",
+    "swagger", "openapi", "postman", "selenium", "cypress"
+  ]
+}

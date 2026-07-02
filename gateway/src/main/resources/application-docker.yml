@@ -1,0 +1,16 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: auth-service
+          uri: http://auth-service:8081
+          predicates:
+            - Path=/api/auth/**
+        - id: resume-service
+          uri: http://resume-service:8082
+          predicates:
+            - Path=/api/resumes/**
+        - id: ai-service
+          uri: http://ai-service:8000
+          predicates:
+            - Path=/api/ai/**

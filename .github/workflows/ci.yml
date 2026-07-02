@@ -1,0 +1,92 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  auth-service:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: maven
+      - name: Build and test auth-service
+        working-directory: ./auth-service
+        run: mvn -B clean verify
+
+  resume-service:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: maven
+      - name: Build and test resume-service
+        working-directory: ./resume-service
+        run: mvn -B clean verify
+
+  gateway:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: maven
+      - name: Build and test gateway
+        working-directory: ./gateway
+        run: mvn -B clean verify
+
+  ai-service:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: ai-service/requirements.txt
+      - name: Install dependencies
+        working-directory: ./ai-service
+        run: pip install -r requirements.txt
+      - name: Run tests
+        working-directory: ./ai-service
+        env:
+          JWT_SECRET: test-secret-for-ci-only
+        run: pytest -v
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: npm ci
+      - name: Run tests
+        working-directory: ./frontend
+        run: npm test
+      - name: Build
+        working-directory: ./frontend
+        run: npm run build
+
+  docker-build:
+    runs-on: ubuntu-latest
+    needs: [auth-service, resume-service, gateway, ai-service, frontend]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build all images with docker-compose
+        run: docker compose build

@@ -1,0 +1,99 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: platform-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: platform_db
+      POSTGRES_USER: platform_user
+      POSTGRES_PASSWORD: platform_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U platform_user -d platform_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: platform-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+
+  ai-service:
+    build: ./ai-service
+    container_name: platform-ai-service
+    restart: unless-stopped
+    environment:
+      JWT_SECRET: ${JWT_SECRET:-change-me-in-production-use-256-bit-secret}
+      LLM_PROVIDER: ${LLM_PROVIDER:-none}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ai_vector_store:/app/data/vector_store
+
+  auth-service:
+    build: ./auth-service
+    container_name: platform-auth-service
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      DB_USERNAME: platform_user
+      DB_PASSWORD: platform_pass
+      JWT_SECRET: ${JWT_SECRET:-change-me-in-production-use-256-bit-secret}
+    ports:
+      - "8081:8081"
+
+  resume-service:
+    build: ./resume-service
+    container_name: platform-resume-service
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      ai-service:
+        condition: service_started
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      DB_USERNAME: platform_user
+      DB_PASSWORD: platform_pass
+      JWT_SECRET: ${JWT_SECRET:-change-me-in-production-use-256-bit-secret}
+    ports:
+      - "8082:8082"
+
+  gateway:
+    build: ./gateway
+    container_name: platform-gateway
+    restart: unless-stopped
+    depends_on:
+      - auth-service
+      - resume-service
+      - ai-service
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build: ./frontend
+    container_name: platform-frontend
+    restart: unless-stopped
+    depends_on:
+      - gateway
+    ports:
+      - "3000:80"
+
+volumes:
+  postgres_data:
+  ai_vector_store:
