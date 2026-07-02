@@ -39,7 +39,7 @@ class ResumeServiceTest {
 
     @BeforeEach
     void setUp() {
-        when(resumeRepository.save(any(Resume.class))).thenAnswer(inv -> {
+        lenient().when(resumeRepository.save(any(Resume.class))).thenAnswer(inv -> {
             Resume r = inv.getArgument(0);
             if (r.getId() == null) r.setId(1L);
             return r;
