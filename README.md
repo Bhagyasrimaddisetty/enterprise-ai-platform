@@ -1,8 +1,25 @@
-# Enterprise AI Talent & Knowledge Platform
+# 🚀 Enterprise AI Talent & Knowledge Platform
+
+![Java](https://img.shields.io/badge/Java-17-orange)
+![Spring Boot](https://img.shields.io/badge/SpringBoot-3.x-brightgreen)
+![React](https://img.shields.io/badge/React-19-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-Python-green)
+![JWT](https://img.shields.io/badge/Auth-JWT-red)
 
 A full-stack platform combining Spring Boot microservices and a FastAPI AI
 service to provide AI-powered resume ATS scoring, document question-answering
 (RAG), and interview question generation/evaluation through a React dashboard.
+
+## ✨ Features
+
+- 🔐 JWT Authentication & Role-Based Access Control
+- 📄 AI-powered Resume ATS Analysis
+- 📊 Keyword Match & Semantic Similarity Scoring
+- 📚 Document Question Answering (RAG)
+- 🤖 AI Interview Question Generation
+- 📝 Interview Answer Evaluation
+- 🌐 Spring Cloud Gateway
+- 🏗️ Microservices Architecture
 
 ## Architecture
 
@@ -30,48 +47,33 @@ by auth-service are trusted by resume-service and ai-service without a
 second login. ai-service is *not* an authentication authority — it validates,
 never issues, tokens.
 
-## What's actually verified, and how
+## 🛠️ Tech Stack
 
-I don't have Maven, Gradle, or Docker in the sandbox I built this in, and
-Maven Central was network-blocked — so the three Spring Boot services were
-written correctly and completely, but **not compiled locally**. Real
-verification for those happens in CI (`.github/workflows/ci.yml`, `mvn clean
-verify`) the first time you push. Check the Actions tab goes green before
-you cite these as "tested" anywhere.
+### Frontend
+- React
+- Material UI
+- Axios
+- React Router
 
-What I *did* run and verify myself, end-to-end, in this session:
-- **ai-service**: 17 pytest tests passing, plus live curl calls against a
-  running instance — resume scoring, interview question generation, and
-  document RAG ingest+query all returned real, correct responses.
-- **frontend**: 5 Vitest tests passing, and `npm run build` produces a real
-  production bundle.
+### Backend
+- Spring Boot
+- Spring Security
+- Spring Cloud Gateway
+- JWT Authentication
 
-## Honest technology notes (read before writing resume bullets)
+### AI Service
+- FastAPI
+- Scikit-learn
+- FAISS
+- Gemini API (Optional)
 
-- **No Sentence Transformers / deep embeddings.** PyPI's default `torch`
-  wheel pulls multi-GB CUDA dependencies that didn't fit in this sandbox,
-  and the CPU-only wheel index isn't reachable here. Resume similarity and
-  document search both use **TF-IDF vectors + scikit-learn cosine
-  similarity**, indexed with **FAISS** for the document RAG path. That's a
-  real, working, testable technique — just not a transformer embedding
-  model. If you want real sentence-transformers embeddings, that's a
-  concrete follow-up task on your own machine (which won't hit this
-  sandbox's disk/network limits), not something to claim now.
-- **LLM calls (Gemini/OpenAI) are fully optional and untested here** — I
-  have no API key. The code path is real (`app/services/llm_client.py`),
-  but with no key configured, resume scoring, document Q&A, and interview
-  question generation all run in a genuine no-LLM mode (TF-IDF scoring,
-  extractive RAG answers, template-based questions) rather than silently
-  faking a generated response. Set `LLM_PROVIDER` + an API key to turn on
-  the LLM path — then actually test it before claiming "Gemini/OpenAI
-  integration" anywhere.
-- **Grammar checking in interview evaluation is rule-based** (double
-  spaces, repeated words, capitalization/punctuation) — not an AI grammar
-  model. Said plainly in code comments so it's not mistaken for more than
-  it is.
-- **Redis is wired into docker-compose but not yet used by any service.**
-  Don't list it as an implemented skill until something actually reads/writes
-  through it.
+### Database
+- PostgreSQL
+- H2 (Development)
+
+### Testing
+- Pytest
+- Vitest
 
 ## Prerequisites
 
@@ -197,3 +199,7 @@ enterprise-ai-platform/
 ├── docker-compose.yml
 └── .github/workflows/ci.yml
 ```
+
+## 📄 License
+
+This project is licensed under the MIT License.
