@@ -50,7 +50,7 @@ class LLMClient:
     async def _call_gemini(self, prompt: str, max_tokens: int) -> str:
         url = (
             "https://generativelanguage.googleapis.com/v1beta/models/"
-            f"gemini-1.5-flash:generateContent?key={self.settings.gemini_api_key}"
+            f"gemini-2.5-flash:generateContent?key={self.settings.gemini_api_key}"
         )
         body = {
             "contents": [{"parts": [{"text": prompt}]}],
