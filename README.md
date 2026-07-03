@@ -132,6 +132,37 @@ cd frontend && npm test
 cd auth-service && mvn test
 ```
 
+## 📸 Application Screenshots
+
+### Login Page
+![Login](Screenshot%202026-07-02%20214114.png)
+
+---
+
+### Dashboard
+![Dashboard](Screenshot%202026-07-02%20220911.png)
+
+---
+
+### Resume Analyzer
+![Resume Analyzer](Screenshot%202026-07-02%20221040.png)
+
+---
+
+### Document Q&A
+![Document Q&A](Screenshot%202026-07-02%20221046.png)
+
+---
+
+### Interview Preparation
+![Interview Preparation](Screenshot%202026-07-03%20131938.png)
+
+---
+
+### AI Service Swagger
+![Swagger UI](Screenshot%202026-07-03%20132102.png)
+
+
 ## Key API endpoints (via gateway, port 8080)
 
 | Method | Path | Service | Auth |
