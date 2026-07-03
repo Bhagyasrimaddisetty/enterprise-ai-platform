@@ -23,8 +23,7 @@ class LLMUnavailableError(Exception):
 class LLMClient:
     def __init__(self):
         self.settings = get_settings()
-        print("Provider =", self.settings.llm_provider)
-        print("Gemini Key Loaded =", bool(self.settings.gemini_api_key))
+       
 
     @property
     def is_available(self) -> bool:
