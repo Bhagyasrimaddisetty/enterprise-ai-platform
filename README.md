@@ -161,8 +161,7 @@ cd auth-service && mvn test
 ---
 
 ### Document Q&A
-![Document Q&A](Screenshot%2026-07-03%141411.png)
-
+![Document Q&A](Screenshot%202026-07-03%20141411.png)
 ## Key API endpoints (via gateway, port 8080)
 
 | Method | Path | Service | Auth |
