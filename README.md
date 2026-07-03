@@ -150,7 +150,7 @@ cd auth-service && mvn test
 ![Interview Preparation](screenshots/interview-prep.png)
 
 ### AI Service Swagger
-![Swagger UI](screenshots/swagger-ui.png)
+![Swagger](screenshots/swagger.png)
 
 
 ## Key API endpoints (via gateway, port 8080)
