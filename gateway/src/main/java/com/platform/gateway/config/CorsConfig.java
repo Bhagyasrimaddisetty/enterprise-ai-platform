@@ -13,12 +13,29 @@ public class CorsConfig {
 
     @Bean
     public CorsWebFilter corsWebFilter() {
+
         CorsConfiguration corsConfig = new CorsConfiguration();
-        corsConfig.setAllowedOriginPatterns(List.of("*"));
-        corsConfig.setMaxAge(3600L);
-        corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        corsConfig.setAllowedHeaders(List.of("http://localhost:5173"));
+
+        // Allow only your React frontend
+        corsConfig.setAllowedOrigins(List.of("http://localhost:5173"));
+
+        // Allow credentials (JWT/Cookies)
         corsConfig.setAllowCredentials(true);
+
+        // Allowed HTTP methods
+        corsConfig.setAllowedMethods(List.of(
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTIONS"
+        ));
+
+        // Allow all request headers
+        corsConfig.setAllowedHeaders(List.of("*"));
+
+        // Cache preflight response
+        corsConfig.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfig);
