@@ -150,10 +150,6 @@ cd auth-service && mvn test
 
 ### Login Page
 ![Resume Analyzer](Screenshot%202026-07-02%20221040.png)
-
----
-
-### Login Page
 ![Document Q&A](Screenshot%202026-07-02%20221046.png)
 
 ---
@@ -165,7 +161,7 @@ cd auth-service && mvn test
 ---
 
 ### Document Q&A
-![Document Q&A](Screenshot%202026-07-02%20221046.png)
+![Document Q&A](Screenshot%2026-07-03%141411.png)
 
 ## Key API endpoints (via gateway, port 8080)
 
