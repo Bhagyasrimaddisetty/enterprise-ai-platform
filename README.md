@@ -135,32 +135,22 @@ cd auth-service && mvn test
 ## 📸 Application Screenshots
 
 ### Login Page
-![Login](Screenshot%202026-07-02%20214114.png)
-
----
+![Login](screenshots/login.png)
 
 ### Dashboard
-![Dashboard](Screenshot%202026-07-02%20220911.png)
-
----
+![Dashboard](screenshots/dashboard.png)
 
 ### Resume Analyzer
-![Resume Analyzer](Screenshot%202026-07-02%20221040.png)
-
----
+![Resume Analyzer](screenshots/resume-analyzer.png)
 
 ### Document Q&A
-![Document Q&A](Screenshot%202026-07-02%20221046.png)
-
----
+![Document Q&A](screenshots/document-qa.png)
 
 ### Interview Preparation
-![Interview Preparation](Screenshot%202026-07-03%20131938.png)
-
----
+![Interview Preparation](screenshots/interview-prep.png)
 
 ### AI Service Swagger
-![Swagger UI](Screenshot%202026-07-03%20132102.png)
+![Swagger UI](screenshots/swagger-ui.png)
 
 
 ## Key API endpoints (via gateway, port 8080)
